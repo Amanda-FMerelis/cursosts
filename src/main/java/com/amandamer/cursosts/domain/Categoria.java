@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Categoria implements Serializable{
 	private static final long serialVersionUID = 1L;
-// atributos basicos
+// atributos basicos teste
 	private Integer id;
 	private String nome;
 
