@@ -13,6 +13,7 @@ import com.amandamer.cursosts.domain.Cidade;
 import com.amandamer.cursosts.domain.Cliente;
 import com.amandamer.cursosts.domain.Endereco;
 import com.amandamer.cursosts.domain.Estado;
+import com.amandamer.cursosts.domain.ItemPedido;
 import com.amandamer.cursosts.domain.Pagamento;
 import com.amandamer.cursosts.domain.PagamentoComBoleto;
 import com.amandamer.cursosts.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.amandamer.cursosts.repositories.CidadeRepository;
 import com.amandamer.cursosts.repositories.ClienteRepository;
 import com.amandamer.cursosts.repositories.EnderecoRepository;
 import com.amandamer.cursosts.repositories.EstadoRepository;
+import com.amandamer.cursosts.repositories.ItemPedidoRepository;
 import com.amandamer.cursosts.repositories.PagamentoRepository;
 import com.amandamer.cursosts.repositories.PedidoRepository;
 import com.amandamer.cursosts.repositories.ProdutoRepository;
@@ -49,7 +51,8 @@ public class CursostsApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
-	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursostsApplication.class, args);
@@ -113,6 +116,22 @@ public class CursostsApplication implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip3));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));;
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		
+		
+		
 	}
 
 }
