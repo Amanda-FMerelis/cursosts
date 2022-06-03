@@ -26,4 +26,12 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
+	//o inserir e o update são bem parecidos,
+	//a diferença é que quando o ID é null, ele insere, qnd não, ele atualiza
+	
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
+	
 }
