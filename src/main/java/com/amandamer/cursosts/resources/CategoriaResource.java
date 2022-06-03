@@ -1,6 +1,8 @@
 package com.amandamer.cursosts.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.amandamer.cursosts.domain.Categoria;
+import com.amandamer.cursosts.dto.CategoriaDTO;
 import com.amandamer.cursosts.services.CategoriaService;
 
 @RestController
@@ -25,7 +28,6 @@ public class CategoriaResource {
 	public ResponseEntity<Categoria> find(@PathVariable Integer id){
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
-		
 	}
 	
 	//adiciona as anotacoes do FrameWork para reconhecer como um metodo a ser mapeado
@@ -48,4 +50,13 @@ public class CategoriaResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
+		List<Categoria> list = service.findAll();
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+		
+	}
+	
 }
