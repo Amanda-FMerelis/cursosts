@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.amandamer.cursosts.domain.Cliente;
+import com.amandamer.cursosts.services.validation.ClienteUpdate;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable{
 	public static final long serialVersionUID = 1L;
 	
